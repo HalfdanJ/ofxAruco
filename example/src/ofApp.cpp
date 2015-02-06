@@ -1,4 +1,4 @@
-#include "testApp.h"
+#include "ofApp.h"
 #include "ofxCv.h"
 #include "ofBitmapFont.h"
 
@@ -28,7 +28,7 @@ void testApp::setup(){
 		player.play();
 		video = &player;
 	}else{
-		grabber.setDeviceID(1);
+//		grabber.setDeviceID(1);
 		grabber.initGrabber(640,480);
 		video = &grabber;
 	}
@@ -45,7 +45,7 @@ void testApp::setup(){
 	ofEnableAlphaBlending();
 
 	ofPixels pixels;
-	ofBitmapStringGetTextureRef().readToPixels(pixels);
+//	ofBitmapStringGetTextureRef().readToPixels(pixels);
 	ofSaveImage(pixels,"font.bmp");
 }
 
@@ -53,7 +53,7 @@ void testApp::setup(){
 void testApp::update(){
 	video->update();
 	if(video->isFrameNew()){
-		aruco.detectBoards(video->getPixelsRef());
+		aruco.detectBoards(video->getPixels());
 	}
 }
 
