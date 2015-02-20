@@ -15,6 +15,7 @@
 
 #include "boarddetector.h"
 #include "markerdetector.h"
+#include "arucofidmarkers.h"
 #include "Poco/Condition.h"
 
 class ofxAruco: public ofThread {
@@ -42,21 +43,21 @@ public:
 	int getNumMarkers();
 	int getNumBoards();
     
-	void begin(int marker);
+	void begin(int marker, bool flip=false);
     //    bgraf
     //	void beginBoard();
-    void beginBoard(int boardnum);
+    void beginBoard(int boardnum, bool flip=false);
 	void end();
     
 	ofMatrix4x4 getProjectionMatrix();
 	ofMatrix4x4 getModelViewMatrix(int marker);
-	ofMatrix4x4 getModelViewMatrixBoard(int board);
+	ofMatrix4x4 getModelViewMatrixBoard(int board=0);
     
     // bgraf (int board added)
-	ofVec3f getBoardTranslation(int board);
-	ofQuaternion getBoardRotation(int board);
+	ofVec3f getBoardTranslation(int board=0);
+	ofQuaternion getBoardRotation(int board=0);
     
-	void getBoardImage(ofPixels & pixels);
+	void getBoardImage(int board, ofPixels & pixels);
 	void getMarkerImage(int markerID, int size, ofPixels & pixels);
 	void getThresholdImage(ofPixels & pixels);
     
@@ -65,9 +66,15 @@ public:
 	void setThresholdParams(double param1, double param2);
 	void setThresholdMethod(aruco::MarkerDetector::ThresholdMethods method);
     
+    // Speed 0-3
+    void setDetectorSpeed(int speed);
+    
     // bgraf
     //	aruco::BoardConfiguration & getBoardConfig();
     vector<aruco::BoardConfiguration> & getBoardConfigs();
+
+    aruco::CameraParameters getCamParameters();
+    
     
 private:
 	void threadedFunction();

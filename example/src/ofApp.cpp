@@ -20,7 +20,7 @@ void drawMarker(float size, const ofColor & color){
 //--------------------------------------------------------------
 void testApp::setup(){
 	ofSetVerticalSync(true);
-	useVideo = false;
+	useVideo = true;
 	string boardName = "boardConfiguration.yml";
 
 	if(useVideo){
@@ -35,7 +35,7 @@ void testApp::setup(){
 
 	//aruco.setThreaded(false);
 	aruco.setup("intrinsics.int", video->getWidth(), video->getHeight(), boardName);
-	aruco.getBoardImage(board.getPixelsRef());
+	aruco.getBoardImage(board.getPixels());
 	board.update();
 
 	showMarkers = true;
